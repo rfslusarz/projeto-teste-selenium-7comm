@@ -47,7 +47,9 @@ desafio-teste-7comm/
 - **WebDriverManager 5.6.2** - Gerenciamento automático de drivers
 - **RestAssured 5.3.2** - Testes de API
 - **JUnit 5.10.0** - Framework de testes
+- **Allure Framework 2.24.0** - Geração de relatórios de testes
 - **SLF4J + Logback** - Logging
+- **GitHub Actions** - CI/CD Pipeline
 
 ## Pré-requisitos
 
@@ -182,6 +184,111 @@ Classe base que inicializa o driver antes de cada teste e faz cleanup após a ex
 - **Validação de token e perfil** no status 200 da API
 - **Estrutura proposta** documentada no arquivo de cenários
 
+## CI/CD Pipeline
+
+O projeto possui um pipeline de CI/CD configurado com **GitHub Actions** que executa automaticamente verificações de código, testes e geração de relatórios Allure.
+
+### O que o Pipeline faz?
+
+O pipeline é executado automaticamente nas seguintes situações:
+- **Push** para as branches `main`, `master` ou `develop`
+- **Pull Requests** para as branches `main`, `master` ou `develop`
+- **Execução manual** via GitHub Actions (workflow_dispatch)
+
+### Estrutura do Pipeline
+
+O pipeline é composto por 4 jobs principais que executam em sequência:
+
+#### 1. 🔍 Verificação de Código (`code-quality`)
+- **Duração:** ~5-10 minutos
+- **Objetivo:** Validar a qualidade e compilação do código
+- **Ações:**
+  - Compila o projeto Java
+  - Verifica formatação de código (quando configurado)
+  - Utiliza cache do Maven para acelerar a execução
+
+#### 2. 🧪 Execução de Testes (`tests`)
+- **Duração:** ~15-30 minutos
+- **Objetivo:** Executar todos os testes automatizados
+- **Estratégia:** Execução em paralelo com 3 matrizes:
+  - **`api`**: Executa apenas testes de API (RestAssured)
+  - **`ui`**: Executa apenas testes de UI (Selenium)
+  - **`all`**: Executa todos os testes (API + UI)
+- **Configurações:**
+  - Modo headless ativado automaticamente
+  - Display virtual (Xvfb) configurado para testes UI
+  - Chrome com opções otimizadas para CI (`--no-sandbox`, `--disable-dev-shm-usage`)
+  - Cache do Maven para dependências
+- **Saídas:**
+  - Relatórios Allure individuais por suite de testes
+  - Resultados dos testes (XML e TXT)
+  - Artefatos publicados para download
+
+#### 3. 📊 Geração de Relatório Consolidado (`generate-allure-report`)
+- **Duração:** ~5-10 minutos
+- **Objetivo:** Consolidar todos os resultados e gerar relatório Allure final
+- **Ações:**
+  - Baixa todos os resultados de testes dos jobs anteriores
+  - Gera relatório Allure consolidado com todos os testes
+  - Publica relatório como artefato para download
+  - Comenta em Pull Requests com link para o relatório
+
+#### 4. 📋 Resumo da Execução (`summary`)
+- **Duração:** ~1-2 minutos
+- **Objetivo:** Exibir resumo visual da execução no GitHub
+- **Informações:**
+  - Status de cada job
+  - Links para artefatos
+  - Instruções para visualizar relatórios
+
+### Como Acessar os Relatórios Allure
+
+1. **Via GitHub Actions:**
+   - Acesse a aba **"Actions"** no repositório
+   - Selecione a execução do workflow desejada
+   - Role até a seção **"Artifacts"**
+   - Baixe o artefato **"allure-report-consolidado"**
+   - Extraia o arquivo ZIP
+   - Abra o arquivo `index.html` no navegador
+
+2. **Via Pull Request:**
+   - O pipeline automaticamente comenta no PR quando o relatório é gerado
+   - Siga as instruções no comentário para baixar o relatório
+
+### Otimizações do Pipeline
+
+- ✅ **Cache do Maven:** Dependências são cacheadas entre execuções, reduzindo tempo de build
+- ✅ **Execução Paralela:** Testes executam em paralelo usando matriz strategy
+- ✅ **Fail-Fast Desabilitado:** Um teste falhando não interrompe os demais
+- ✅ **Timeouts Configurados:** Previne execuções infinitas
+- ✅ **Continue-on-Error:** Pipeline continua mesmo com falhas parciais
+- ✅ **Artefatos Retidos:** Relatórios disponíveis por 30 dias, resultados por 7 dias
+
+### Executando Testes Localmente com Allure
+
+Para gerar relatórios Allure localmente:
+
+```bash
+# Executar testes e gerar resultados
+mvn clean test
+
+# Gerar relatório Allure
+mvn allure:report
+
+# Abrir relatório no navegador (Linux/Mac)
+mvn allure:serve
+
+# Windows: Abra manualmente target/site/allure-maven-plugin/index.html
+```
+
+### Configurações do CI
+
+O pipeline utiliza automaticamente as seguintes configurações:
+- **Java 11** (Temurin distribution)
+- **Modo Headless:** `headless=true` (via system property)
+- **Navegador:** Chrome (configurado automaticamente)
+- **Display Virtual:** Xvfb para testes UI sem interface gráfica
+
 ## Notas Importantes
 
 - **URL da aplicação:** https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
@@ -192,3 +299,4 @@ Classe base que inicializa o driver antes de cada teste e faz cleanup após a ex
 - O projeto utiliza **WebDriverManager** para gerenciamento automático dos drivers dos navegadores
 - Após login bem-sucedido, o OrangeHRM redireciona para a página de dashboard (`/web/index.php/dashboard`)
 - Testes de **SQL Injection e XSS** são recomendados para execução manual com ferramentas especializadas
+- **CI/CD:** Pipeline configurado com GitHub Actions e relatórios Allure automáticos
