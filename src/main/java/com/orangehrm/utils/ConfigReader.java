@@ -21,6 +21,11 @@ public class ConfigReader {
     }
 
     public static String getProperty(String key) {
+        // Prioriza propriedades do sistema (útil para CI/CD)
+        String systemProperty = System.getProperty(key);
+        if (systemProperty != null && !systemProperty.isEmpty()) {
+            return systemProperty;
+        }
         return properties.getProperty(key);
     }
 

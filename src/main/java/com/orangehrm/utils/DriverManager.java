@@ -29,6 +29,9 @@ public class DriverManager {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (ConfigReader.isHeadless()) {
                     chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("--no-sandbox");
+                    chromeOptions.addArguments("--disable-dev-shm-usage");
+                    chromeOptions.addArguments("--disable-gpu");
                 }
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--disable-notifications");
