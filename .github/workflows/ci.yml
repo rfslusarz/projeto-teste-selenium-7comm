@@ -44,11 +44,10 @@ jobs:
         include:
           - profile: 'api'
             test-arg: '-Dtest=LoginAPITests'
-          # Temporariamente desabilitado - problemas com Selenium no CI
-          # - profile: 'ui'
-          #   test-arg: '-Dtest=com.orangehrm.ui.**'
-          # - profile: 'all'
-          #   test-arg: ''
+          - profile: 'ui'
+            test-arg: '-Dtest=com.orangehrm.ui.LoginUITests'
+          - profile: 'all'
+            test-arg: '-Dtest=!VisualRegressionTests'
 
 
     steps:
