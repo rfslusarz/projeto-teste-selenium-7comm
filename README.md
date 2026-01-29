@@ -127,8 +127,10 @@ O projeto utiliza **GitHub Actions** para Integração Contínua.
 ### Funcionalidades do Pipeline
 - **Execução Agendada:** Roda diariamente à meia-noite.
 - **Cache Otimizado:** Cache inteligente para dependências Maven.
-- **Matriz de Testes:** Execução paralela de API e UI.
+- **Testes de API:** Execução automatizada dos testes de API (RestAssured).
 - **Relatórios Allure:** Publicação automática no GitHub Pages.
+
+> **Nota:** Os testes de UI (Selenium) estão temporariamente desabilitados no CI devido a limitações de ambiente headless. Execute localmente com `mvn test -Dtest=com.orangehrm.ui.**` ou via Docker.
 
 ### Como Acessar os Relatórios
 Ao final da execução do workflow no GitHub Actions, o artefato `allure-report-consolidado` estará disponível para download, e o relatório HTML será publicado no GitHub Pages (branch `gh-pages`).
