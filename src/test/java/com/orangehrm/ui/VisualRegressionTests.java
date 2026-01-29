@@ -1,7 +1,7 @@
 package com.orangehrm.ui;
 
 import com.orangehrm.base.TestBase;
-import com.orangehrm.pages.LoginPage;
+
 import com.orangehrm.utils.ConfigReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +28,6 @@ public class VisualRegressionTests extends TestBase {
     @Test
     @DisplayName("Validar Logo da Login Page")
     public void testLogoVisual() throws IOException {
-        LoginPage loginPage = new LoginPage(driver);
         driver.get(ConfigReader.getBaseUrl());
 
         // Elemento alvo (Logo da empresa na página de login)

@@ -28,13 +28,17 @@ public class DriverManager {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 if (ConfigReader.isHeadless()) {
-                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--no-sandbox");
                     chromeOptions.addArguments("--disable-dev-shm-usage");
                     chromeOptions.addArguments("--disable-gpu");
+                    chromeOptions.addArguments("--disable-software-rasterizer");
+                    chromeOptions.addArguments("--disable-extensions");
+                    chromeOptions.addArguments("--window-size=1920,1080");
                 }
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.addArguments("--disable-notifications");
+                chromeOptions.addArguments("--remote-allow-origins=*");
                 webDriver = new ChromeDriver(chromeOptions);
                 break;
 
@@ -62,8 +66,7 @@ public class DriverManager {
 
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(
-            java.time.Duration.ofSeconds(ConfigReader.getImplicitWait())
-        );
+                java.time.Duration.ofSeconds(ConfigReader.getImplicitWait()));
 
         driver.set(webDriver);
     }
