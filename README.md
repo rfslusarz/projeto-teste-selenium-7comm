@@ -1,5 +1,13 @@
 # OrangeHRM - Automação de Testes
 
+![Java](https://img.shields.io/badge/Java-11-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-4.15.0-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![RestAssured](https://img.shields.io/badge/Rest_Assured-5.3.2-005C84?style=for-the-badge&logo=checkmarx&logoColor=white)
+![JUnit 5](https://img.shields.io/badge/JUnit-5.10.0-25A162?style=for-the-badge&logo=junit5&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-3.6+-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+![Allure Report](https://img.shields.io/badge/Allure_Report-2.24.0-FF7F00?style=for-the-badge&logo=allure&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+
 Projeto de automação de testes para o site OrangeHRM (https://opensource-demo.orangehrmlive.com/) utilizando Selenium WebDriver e RestAssured.
 
 ## Estrutura do Projeto
@@ -199,7 +207,7 @@ O pipeline é executado automaticamente nas seguintes situações:
 
 O pipeline é composto por 4 jobs principais que executam em sequência:
 
-#### 1. 🔍 Verificação de Código (`code-quality`)
+#### 1. Verificação de Código (`code-quality`)
 - **Duração:** ~5-10 minutos
 - **Objetivo:** Validar a qualidade e compilação do código
 - **Ações:**
@@ -207,7 +215,7 @@ O pipeline é composto por 4 jobs principais que executam em sequência:
   - Verifica formatação de código (quando configurado)
   - Utiliza cache do Maven para acelerar a execução
 
-#### 2. 🧪 Execução de Testes (`tests`)
+#### 2. Execução de Testes (`tests`)
 - **Duração:** ~15-30 minutos
 - **Objetivo:** Executar todos os testes automatizados
 - **Estratégia:** Execução em paralelo com 3 matrizes:
@@ -224,7 +232,7 @@ O pipeline é composto por 4 jobs principais que executam em sequência:
   - Resultados dos testes (XML e TXT)
   - Artefatos publicados para download
 
-#### 3. 📊 Geração de Relatório Consolidado (`generate-allure-report`)
+#### 3. Geração de Relatório Consolidado (`generate-allure-report`)
 - **Duração:** ~5-10 minutos
 - **Objetivo:** Consolidar todos os resultados e gerar relatório Allure final
 - **Ações:**
@@ -233,7 +241,7 @@ O pipeline é composto por 4 jobs principais que executam em sequência:
   - Publica relatório como artefato para download
   - Comenta em Pull Requests com link para o relatório
 
-#### 4. 📋 Resumo da Execução (`summary`)
+#### 4. Resumo da Execução (`summary`)
 - **Duração:** ~1-2 minutos
 - **Objetivo:** Exibir resumo visual da execução no GitHub
 - **Informações:**
@@ -257,12 +265,12 @@ O pipeline é composto por 4 jobs principais que executam em sequência:
 
 ### Otimizações do Pipeline
 
-- ✅ **Cache do Maven:** Dependências são cacheadas entre execuções, reduzindo tempo de build
-- ✅ **Execução Paralela:** Testes executam em paralelo usando matriz strategy
-- ✅ **Fail-Fast Desabilitado:** Um teste falhando não interrompe os demais
-- ✅ **Timeouts Configurados:** Previne execuções infinitas
-- ✅ **Continue-on-Error:** Pipeline continua mesmo com falhas parciais
-- ✅ **Artefatos Retidos:** Relatórios disponíveis por 30 dias, resultados por 7 dias
+- **Cache do Maven:** Dependências são cacheadas entre execuções, reduzindo tempo de build
+- **Execução Paralela:** Testes executam em paralelo usando matriz strategy
+- **Fail-Fast Desabilitado:** Um teste falhando não interrompe os demais
+- **Timeouts Configurados:** Previne execuções infinitas
+- **Continue-on-Error:** Pipeline continua mesmo com falhas parciais
+- **Artefatos Retidos:** Relatórios disponíveis por 30 dias, resultados por 7 dias
 
 ### Executando Testes Localmente com Allure
 
