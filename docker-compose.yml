@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Serviço para executar os testes
+  tests:
+    build: .
+    image: orangehrm-tests
+    container_name: orangehrm-automation
+    volumes:
+      - ./target/allure-results:/app/target/allure-results
+    environment:
+      - SELENIUM_REMOTE_URL=http://selenium-chrome:4444/wd/hub
+      - BROWSER=chrome
+      - HEADLESS=true
+    depends_on:
+      - selenium-chrome
+
+  # Serviço do Selenium Grid (Chrome)
+  selenium-chrome:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium-chrome
+    ports:
+      - "4444:4444"
+      - "7900:7900" # NoVNC para visualização
+    shm_size: 2g # Necessário para o Chrome não crashar
