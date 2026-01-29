@@ -1,4 +1,4 @@
-# OrangeHRM - Automação de Testes
+# Automação de Testes - Selenium 7comm
 
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Selenium](https://img.shields.io/badge/Selenium-4.15.0-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
@@ -162,5 +162,6 @@ O projeto implementa validação visual automatizada utilizando **AShot**.
 mvn test -Dtest=VisualRegressionTests
 ```
 *Na primeira execução, o teste falhará propositalmente e salvará a captura atual como sugestão para baseline.*
+
 
 
