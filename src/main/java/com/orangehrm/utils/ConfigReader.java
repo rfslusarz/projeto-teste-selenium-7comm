@@ -1,6 +1,5 @@
 package com.orangehrm.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -10,11 +9,13 @@ public class ConfigReader {
     static {
         try {
             properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(
-                System.getProperty("user.dir") + "/src/main/resources/config.properties"
-            );
-            properties.load(fileInputStream);
-            fileInputStream.close();
+            try (java.io.InputStream inputStream = ConfigReader.class.getClassLoader()
+                    .getResourceAsStream("config.properties")) {
+                if (inputStream == null) {
+                    throw new RuntimeException("Arquivo config.properties não encontrado no classpath");
+                }
+                properties.load(inputStream);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Erro ao carregar arquivo de configuração", e);
         }
