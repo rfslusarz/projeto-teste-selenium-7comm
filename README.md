@@ -14,7 +14,6 @@ Projeto de automação de testes para o site OrangeHRM (https://opensource-demo.
 ## Estrutura do Projeto
 
 ```
-desafio-teste-7comm/
 ├── src/
 │   ├── main/
 │   │   ├── java/
