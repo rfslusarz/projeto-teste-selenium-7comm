@@ -1,4 +1,4 @@
-# Automação de Testes - Selenium 7comm
+# Automação de Testes - Selenium
 
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Selenium](https://img.shields.io/badge/Selenium-4.15.0-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
