@@ -147,8 +147,6 @@ Ao final da execução do workflow no GitHub Actions, o artefato `allure-report-
 
 ![Execução dos Testes](docs/demo.gif)
 
-*Nota: Para gerar este GIF, utilize uma ferramenta de gravação de tela durante a execução local e salve o arquivo em `docs/demo.gif`.*
-
 ## Regressão Visual Validação
 
 O projeto implementa validação visual automatizada utilizando **AShot**.
